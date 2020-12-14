@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="1" parallel="tests" name="Failed suite [Suite]" guice-stage="DEVELOPMENT" verbose="3">
+  <test thread-count="1" parallel="methods" name="ChromeTest1(failed)" verbose="3">
+    <parameter name="TD_Username" value="9003130341"/>
+    <parameter name="TD_password" value="SreE.Aug20"/>
+    <parameter name="StrBrowser" value="Chrome"/>
+    <classes>
+      <class name="com.amazon.AmazonTest1">
+        <methods>
+          <include name="tearDown"/>
+          <include name="setBrowser"/>
+          <include name="VerifyAmazonLoginPageTitle"/>
+        </methods>
+      </class> <!-- com.amazon.AmazonTest1 -->
+    </classes>
+  </test> <!-- ChromeTest1(failed) -->
+</suite> <!-- Failed suite [Suite] -->

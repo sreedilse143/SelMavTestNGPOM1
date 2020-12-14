@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" thread-count="2" parallel="tests" verbose="3">
+
+	<test name="ChromeTest1" parallel="methods" thread-count="1">
+		<parameter name="StrBrowser" value="Chrome" />
+		<parameter name="TD_Username" value="9003130341" />
+		<parameter name="TD_password" value="SreE.Aug20" />
+		<classes>
+			<class name="com.wrapers.BaseTest" />
+			<class name="com.amazon.AmazonTest1" />
+		</classes>
+	</test> <!-- Test -->
+
+
+	<test name="EdgeTest2" parallel="methods" thread-count="1">
+		<parameter name="StrBrowser" value="Edge" />
+		<parameter name="TD_Username" value="9003130341" />
+		<parameter name="TD_password" value="SreE.Aug20" />
+		<classes>
+			<class name="com.wrapers.BaseTest">
+				<methods>
+					<exclude name=".*" />
+				</methods>
+			</class>
+			<class name="com.amazon.AmazonTest1">
+				<methods>
+					<exclude name=".*" />
+				</methods>
+			</class>
+		</classes>
+	</test> <!-- Test -->
+
+</suite> <!-- Suite -->
