@@ -1,5 +1,7 @@
 package com.amazonpages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,9 +10,6 @@ import org.openqa.selenium.support.ui.Select;
 import com.pages.BasePage;
 
 public class OrderProductPage extends BasePage {
-
-	private String a1 = "Books";
-	private String a2 = "Call Me by Your Name: A Novel (International Edition)";
 
 	private By HelloUser = By.xpath("//a[@id='nav-link-accountList']/div/span[contains(text(),'Hello, Akula')]");
 
@@ -27,14 +26,14 @@ public class OrderProductPage extends BasePage {
 	private By SearchResultsFilterTable = By.xpath("//div[@id='search']/div[1]/div[1]");
 	private By SearchResultsTable = By.xpath("//div[@id='search']/div[1]/div[2]");
 	private By SearchResult1 = By.xpath(
-			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_1']");
+			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_2']");
 
 	private By SearchResults1_Name = By.xpath(
-			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_1']//a[@class='a-link-normal a-text-normal']");
+			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_2']//a[@class='a-link-normal a-text-normal']");
 	private By SearchResults1_Price1 = By.xpath(
-			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_1']//div[@class='a-section a-spacing-none a-spacing-top-mini']//div[@class='a-row']/div[1]");
+			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_2']//div[@class='a-row a-size-base a-color-base']");
 	private By SearchResults1_Price2 = By.xpath(
-			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_1']//div[@class='a-section a-spacing-none a-spacing-top-mini']//div[@class='a-row']/div[2]");
+			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_2']//div[@class='a-section a-spacing-none a-spacing-top-mini']//div[@class='a-row']/div[2]");
 
 	private By ProductName = By.id("productTitle");
 	private By ProductSource = By.xpath("//*[@id='a-autoid-5-announce']");
@@ -120,7 +119,13 @@ public class OrderProductPage extends BasePage {
 	 * @param searchProductType the searchProductType to set
 	 */
 	public void setSearchProductType(String Testdata) {
-		new Select(getElemenet(SearchProductType)).selectByValue(Testdata);
+		WebElement s = getElemenet(SearchProductType);
+		/*
+		 * List<WebElement> op = new Select(s).getOptions(); int size = op.size(); for
+		 * (int i = 0; i < size; i++) { String options = op.get(i).getText();
+		 * System.out.println(options); }
+		 */
+		new Select(s).selectByVisibleText(Testdata);
 	}
 
 	/**
@@ -134,7 +139,7 @@ public class OrderProductPage extends BasePage {
 	 * @param searchProduct the searchProduct to set
 	 */
 	public void setSearchProduct(String Testdata) {
-		getElemenet(SearchProductType).sendKeys(Testdata);
+		getElemenet(SearchProduct).sendKeys(Testdata);
 	}
 
 	/**
@@ -179,8 +184,9 @@ public class OrderProductPage extends BasePage {
 	/**
 	 * @return the searchResults1_Name
 	 */
-	public String getSearchResults1_Name() {
-		return getElemenetText(SearchResults1_Name);
+
+	public WebElement getSearchResults1_Name() {
+		return getElemenet(SearchResults1_Name);
 	}
 
 	/**
@@ -270,8 +276,9 @@ public class OrderProductPage extends BasePage {
 	/**
 	 * @return the cAddedtoCart
 	 */
-	public WebElement getcAddedtoCart() {
-		return getElemenet(cAddedtoCart);
+	public String getcAddedtoCart() {
+		waitForElementPresent(cAddedtoCart);
+		return getElemenetText(cAddedtoCart);
 	}
 
 	/**
@@ -506,17 +513,24 @@ public class OrderProductPage extends BasePage {
 	}
 
 	/**
-	 * @return the Menulink
+	 * @return the Menu link
 	 */
 	public WebElement getMenulink() {
 		return getElemenet(Menulink);
 	}
 
 	/**
-	 * @return the Signlink
+	 * @return the Sign link
 	 */
 	public WebElement getSignlink() {
 		return getElemenet(Signlink);
+	}
+
+	/**
+	 * set the Sign link
+	 */
+	public void setSignlink() {
+		moveToElementClick(Signlink);
 	}
 
 	/**
@@ -536,14 +550,13 @@ public class OrderProductPage extends BasePage {
 		 */
 		setSearchProductType(p_ProductType);
 		setSearchProduct(p_Product);
-		getSearchProduct().click();
+		getSearchButton().click();
 
 		/*
 		 * Sort LowToHigh
 		 */
-		getSearchResultsSort().click();
-		;
-		getSortLowToHigh().click();
+		// getSearchResultsSort().click();
+		// getSortLowToHigh().click();
 		getSearchResultsFilterTable();
 		getSearchResultsTable();
 
@@ -551,10 +564,10 @@ public class OrderProductPage extends BasePage {
 		 * Select first product in search
 		 */
 		getSearchResult1();
-		System.out.println(getSearchResults1_Name());
 		System.out.println(getSearchResults1_Price1());
-		System.out.println(getSearchResults1_Price2());
+		getSearchResults1_Name().click();
 
+		switchChildBrowser();
 		/*
 		 * Select first product in search
 		 */
@@ -576,7 +589,7 @@ public class OrderProductPage extends BasePage {
 		getcCartCloselink().click();
 
 		getMenulink().click();
-		getSignlink().click();
+		setSignlink();
 
 		return getInstance(OrderProductPage.class);
 

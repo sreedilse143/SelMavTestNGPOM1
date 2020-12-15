@@ -10,7 +10,7 @@ import com.wrapers.BaseTest;
 
 public class AmazonTest1 extends BaseTest {
 
-	@Test(priority = 1)
+	@Test(priority = 1, enabled = false)
 	@Parameters(value = { "TD_Username", "TD_password" })
 	public void VerifyAmazonLoginPageTitle() {
 		String pt = page.getInstance(AmazonLoginPage.class).getPageTitle();
@@ -18,7 +18,7 @@ public class AmazonTest1 extends BaseTest {
 				"Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in");
 	}
 
-	@Test(priority = 2)
+	@Test(priority = 2, enabled = false)
 	@Parameters(value = { "TD_Username", "TD_password" })
 	public void AmazonLoginTest(String TD_Username, String TD_password) {
 		page.getInstance(AmazonLoginPage.class).login(TD_Username, TD_password);

@@ -1,6 +1,8 @@
 package com.wrapers;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,7 +26,7 @@ public class BaseTest {
 	private String TD_URL = "https://www.amazon.in/";
 
 	@BeforeMethod
-	@Parameters(value = {"StrBrowser"})
+	@Parameters(value = { "StrBrowser" })
 	public void setBrowser(String StrBrowser) {
 		switch (StrBrowser.toUpperCase()) {
 		case "CHROME":
@@ -145,12 +147,13 @@ public class BaseTest {
 			break;
 
 		default:
-			driver.manage().window().maximize();
 
 			break;
 		}
 
 		driver.get(TD_URL);
+		driver.manage().window().maximize();
+
 		page = new BasePage(driver);
 
 	}
@@ -163,6 +166,7 @@ public class BaseTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		driver.close();
 		driver.quit();
 	}
 

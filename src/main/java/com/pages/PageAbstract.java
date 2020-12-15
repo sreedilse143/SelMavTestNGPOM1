@@ -4,6 +4,7 @@
  */
 
 package com.pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,24 +21,20 @@ public abstract class PageAbstract {
 
 	}
 
-	
 	public abstract String getPageTitle();
-	
+
 	public abstract String getPageURL();
-	
+
 	public abstract void waitForPageTitle(String strPageTitle);
-	
+
 	public abstract WebElement getElemenet(By Locator);
-	
+
 	public abstract void waitForElementPresent(By Locator);
-	
+
+	public abstract void scrollclickElemenet(By Locator);
+
 	public abstract String getElemenetText(By Locator);
 
-	public abstract void doubleClickElement(By Locator);
-
-	public abstract void ClickElement(By Locator);
-
-	
 	public <TPage extends BasePage> TPage getInstance(Class<TPage> pageClass) {
 		try {
 			return pageClass.getDeclaredConstructor(WebDriver.class).newInstance(this.driver);
@@ -45,8 +42,7 @@ public abstract class PageAbstract {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
-	
-	
+
 }
