@@ -5,7 +5,7 @@
 	<test name="ChromeTest1" parallel="methods" thread-count="1">
 		<parameter name="StrBrowser" value="Chrome" />
 		<parameter name="TD_Username" value="9003130341" />
-		<parameter name="TD_password" value="SreE.Aug20" />
+		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
 		<classes>
 			<class name="com.wrapers.BaseTest" />
 			<class name="com.amazon.AmazonTest1" />
@@ -16,7 +16,7 @@
 	<test name="EdgeTest2" parallel="methods" thread-count="1">
 		<parameter name="StrBrowser" value="Edge" />
 		<parameter name="TD_Username" value="9003130341" />
-		<parameter name="TD_password" value="SreE.Aug20" />
+		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
 		<classes>
 			<class name="com.wrapers.BaseTest">
 				<methods>

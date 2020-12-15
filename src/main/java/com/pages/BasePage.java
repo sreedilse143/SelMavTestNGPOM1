@@ -83,9 +83,9 @@ public class BasePage extends PageAbstract {
 	public void doubleClickElement(By Locator) {
 		Actions aa = new Actions(driver);
 		WebElement localLocator = getElemenet(Locator);
+		new Actions(driver).moveToElement(localLocator).build().perform();		
 		Action mo = aa.doubleClick(localLocator).build();
 		mo.perform();
-		//new Actions(driver).moveToElement(localLocator).build().perform();
 	}
 
 	@Override

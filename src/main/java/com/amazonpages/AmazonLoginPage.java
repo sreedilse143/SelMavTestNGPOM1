@@ -1,5 +1,7 @@
 package com.amazonpages;
 
+import java.util.Base64;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -91,12 +93,15 @@ public class AmazonLoginPage extends BasePage {
 		//getAmazonTitle();
 		//getAmazonLogo();
 		
-		doubleClickAmazonSignIn();
+		doubleClickAmazonSignIn();		
+				
 		getAmazonUserName().sendKeys(p_Username);
 		getContinueButton().click();
 		
 		getloginUserName();
-		getAmazonPassword().sendKeys(p_password);
+		
+		byte[] b = Base64.getDecoder().decode(p_password.getBytes());		
+		getAmazonPassword().sendKeys(new String(b));
 		getLoginButton().click();
 		
 		return getInstance(AmazonLoginPage.class);
