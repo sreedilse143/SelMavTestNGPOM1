@@ -10,7 +10,7 @@ import com.wrapers.BaseTest;
 
 public class AmazonTest1 extends BaseTest {
 
-	@Test(priority = 1, enabled = false)
+	@Test(priority = 1)
 	@Parameters(value = { "TD_Username", "TD_password" })
 	public void VerifyAmazonLoginPageTitle() {
 		String pt = page.getInstance(AmazonLoginPage.class).getPageTitle();

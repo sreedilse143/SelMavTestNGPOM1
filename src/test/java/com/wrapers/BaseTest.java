@@ -6,7 +6,9 @@ import java.util.Set;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
@@ -107,8 +109,8 @@ public class BaseTest {
 		case "EDGE":
 
 			try {
-				Runtime.getRuntime().exec("taskkill /F /IM edge.exe");
-				Runtime.getRuntime().exec("taskkill /F /IM edgeDriverServer.exe");
+				Runtime.getRuntime().exec("taskkill /F /IM msedge.exe");
+				Runtime.getRuntime().exec("taskkill /F /IM msedgeDriverServer.exe");
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -122,7 +124,12 @@ public class BaseTest {
 			 * EdgeOptions eo = new EdgeOptions().setProfile(new EdgeProfile());
 			 * eo.setBinary("binary"); driver = new EdgeDriver(fo);
 			 */
-			driver = new EdgeDriver();
+
+			ChromeOptions chromeOptions = new ChromeOptions();
+			chromeOptions.setBinary("C:\\Program Files (x86)\\Microsoft\\Edge Dev\\Application\\msedge.exe");
+			EdgeOptions edgeOptions = new EdgeOptions().merge(chromeOptions);
+			driver = new EdgeDriver(edgeOptions);
+
 			break;
 
 		case "OPERA":
@@ -144,6 +151,9 @@ public class BaseTest {
 			 * oo.setBinary("binary"); driver = new OperaDriver(oo);
 			 */
 			driver = new OperaDriver();
+			break;
+
+		case "HTMLUNITDRIVER":
 			break;
 
 		default:
