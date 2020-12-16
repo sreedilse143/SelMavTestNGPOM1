@@ -45,4 +45,14 @@
 		</classes>
 	</test> <!-- Test -->
 
+	<test name="FirefoxTest1" parallel="methods" thread-count="2">
+		<parameter name="StrBrowser" value="Firefox" />
+		<parameter name="TD_Username" value="9003130341" />
+		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
+		<parameter name="TD_ProdType" value="Electronics" />
+		<parameter name="TD_ProdName" value="oneplus nord 5g" />
+		<classes>
+			<class name="com.amazon.AmazonTest1" />
+		</classes>
+	</test> <!-- Test -->
 </suite> <!-- Suite -->

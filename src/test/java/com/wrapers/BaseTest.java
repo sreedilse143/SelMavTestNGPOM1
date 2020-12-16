@@ -1,8 +1,6 @@
 package com.wrapers;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Set;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -176,7 +174,6 @@ public class BaseTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		driver.close();
 		driver.quit();
 	}
 

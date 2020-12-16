@@ -11,7 +11,6 @@ import com.wrapers.BaseTest;
 public class AmazonTest1 extends BaseTest {
 
 	@Test(priority = 1)
-	@Parameters(value = { "TD_Username", "TD_password" })
 	public void VerifyAmazonLoginPageTitle() {
 		String pt = page.getInstance(AmazonLoginPage.class).getPageTitle();
 		AssertJUnit.assertEquals(pt,
@@ -24,7 +23,7 @@ public class AmazonTest1 extends BaseTest {
 		page.getInstance(AmazonLoginPage.class).login(TD_Username, TD_password);
 	}
 
-	@Test(priority = 3)
+	@Test(priority = 3, enabled = false)
 	@Parameters(value = { "TD_Username", "TD_password", "TD_ProdType", "TD_ProdName" })
 	public void ProductAddtoCart(String TD_Username, String TD_password, String TD_ProdType, String TD_ProdName) {
 		page.getInstance(AmazonLoginPage.class).login(TD_Username, TD_password);
