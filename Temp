@@ -1,0 +1,57 @@
+
+
+
+	<test name="ChromeTest2" parallel="methods" thread-count="2">
+		<parameter name="StrBrowser" value="Chrome" />
+		<parameter name="TD_Username" value="9003130341" />
+		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
+		<parameter name="TD_ProdType" value="Books" />
+		<parameter name="TD_ProdName"
+			value="Call Me by Your Name: A Novel (International Edition)" />
+		<classes>
+			<class name="com.wrapers.BaseTest">
+				<methods>
+					<exclude name=".*" />
+				</methods>
+			</class>
+			<class name="com.amazon.AmazonTest1">
+				<methods>
+					<exclude name=".*" />
+				</methods>
+			</class>
+		</classes>
+	</test> <!-- Test -->
+
+	<test name="OperaTest1" parallel="methods" thread-count="2">
+		<parameter name="StrBrowser" value="Opera" />
+		<parameter name="TD_Username" value="9003130341" />
+		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
+		<parameter name="TD_ProdType" value="Electronics" />
+		<parameter name="TD_ProdName" value="oneplus nord 5g" />
+		<classes>
+			<class name="com.amazon.AmazonTest1" />
+		</classes>
+	</test> <!-- Test -->
+
+	<test name="FirefoxTest1" parallel="methods" thread-count="2">
+		<parameter name="StrBrowser" value="Firefox" />
+		<parameter name="TD_Username" value="9003130341" />
+		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
+		<parameter name="TD_ProdType" value="Amazon Fresh" />
+		<parameter name="TD_ProdName" value="Fresh Tomato - Local, 1kg" />
+		<classes>
+			<class name="com.amazon.AmazonTest1" />
+		</classes>
+	</test> <!-- Test -->
+	
+	
+Fresh Chilli - Green, 100g
+Fresh Tomato Hybrid
+Fresh Coriander, 100g
+
+Fresh Potato, 1kg
+
+Fresh Bhendi, 500g
+Fresh Lemon, 250 g,
+Fresh Lemon, 250 g
+

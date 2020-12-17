@@ -160,6 +160,9 @@ public class BaseTest {
 		}
 
 		driver.get(TD_URL);
+		
+        //driver.manage().deleteAllCookies();
+
 		driver.manage().window().maximize();
 
 		page = new BasePage(driver);
@@ -171,7 +174,6 @@ public class BaseTest {
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		driver.quit();

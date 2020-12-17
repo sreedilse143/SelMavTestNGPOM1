@@ -27,13 +27,13 @@ public abstract class PageAbstract {
 
 	public abstract void waitForPageTitle(String strPageTitle);
 
-	public abstract WebElement getElemenet(By Locator);
+	public abstract WebElement getElement(By Locator);
 
 	public abstract void waitForElementPresent(By Locator);
 
-	public abstract void scrollclickElemenet(By Locator);
+	public abstract void scrollclickElement(By Locator);
 
-	public abstract String getElemenetText(By Locator);
+	public abstract String getElementText(By Locator);
 
 	public <TPage extends BasePage> TPage getInstance(Class<TPage> pageClass) {
 		try {

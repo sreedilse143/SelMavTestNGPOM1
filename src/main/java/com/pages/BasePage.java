@@ -1,9 +1,14 @@
 package com.pages;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,6 +24,8 @@ import org.openqa.selenium.interactions.Actions;
  *
  */
 public class BasePage extends PageAbstract {
+
+	JavascriptExecutor js = (JavascriptExecutor) driver;
 
 	public BasePage(WebDriver driver) {
 		super(driver);
@@ -54,29 +61,152 @@ public class BasePage extends PageAbstract {
 	}
 
 	@Override
-	public WebElement getElemenet(By Locator) {
+	public WebElement getElement(By Locator) {
 		WebElement localLocator = null;
 		try {
 			localLocator = driver.findElement(Locator);
 			waitForElementPresent(Locator);
 			return localLocator;
 		} catch (Exception e) {
-			System.out.println("Exception in getElemenet" + Locator.toString());
+			System.out.println("Exception in getElement" + Locator.toString());
 			e.printStackTrace();
 			return localLocator;
 		}
 
 	}
 
-	@Override
-	public void scrollclickElemenet(By Locator) {
+	public WebElement getElement(By Locator, String strElementText) {
 		WebElement localLocator = null;
 		try {
-			localLocator = driver.findElement(Locator);
-			waitForElementPresent(Locator);
-			//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", localLocator);
+
+			List<WebElement> AllLocators = driver.findElements(Locator);
+			if (AllLocators.size() < 1) {
+				System.out.println("No Elements found in the list");
+			} else {
+				for (WebElement currentLocator : AllLocators) {
+					if (currentLocator.getText().contains(strElementText)) {
+						System.out.println(currentLocator.getText());
+						localLocator = currentLocator;
+					}
+				}
+			}
 		} catch (Exception e) {
-			System.out.println("Exception in getElemenet" + Locator.toString());
+			System.out.println("Exception in getElements " + strElementText);
+			e.printStackTrace();
+		}
+		return localLocator;
+	}
+
+	public WebElement getSearchPagination(By Pages, By Locator, String strElementText) {
+
+		int StaleTry = 0;
+		Boolean bFound = false;
+		WebElement localLocator = null;
+		List<WebElement> AllLocators = null;
+		List<WebElement> Allpages = null;
+
+		try {
+
+			Allpages = driver.findElements(Pages);
+			if (Allpages.size() < 1) {
+				System.out.println("No Pages found");
+			} else {
+				System.out.println("Pages found" + Allpages.size());
+			}
+
+			for (int i = 0; i < Allpages.size(); i++) {
+
+				StaleTry = 1;
+				while (StaleTry < 2) {
+					try {
+						waitForTimeOut();
+						driver.switchTo().defaultContent();
+
+						AllLocators = driver.findElements(Locator);
+						if (AllLocators.size() < 1) {
+							System.out.println("No Elements founds in the AllLocators list");
+						} else {
+							for (WebElement currentLocator : AllLocators) {
+								System.out.println(currentLocator.getText());
+
+								if (currentLocator.getText().contains(strElementText)) {
+									System.out.println(currentLocator.getText());
+									localLocator = currentLocator;
+									bFound = true;
+									break;
+								}
+							}
+						}
+
+					} catch (StaleElementReferenceException se) {
+
+					}
+					StaleTry++;
+				}
+				
+				if  (!bFound) {
+					/*
+					 * Next Page If Not Found
+					 */
+					StaleTry = 1;
+
+					while (StaleTry < 2) {
+						Allpages = driver.findElements(Pages);
+						try {
+							js.executeScript("window.scrollBy(0,1200)");
+
+							System.out.println(Allpages.get(i + 1).getText());
+							Allpages.get(i + 1).click();
+
+						} catch (StaleElementReferenceException se) {
+							se.printStackTrace();
+						}
+						StaleTry++;
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception in getElements " + strElementText);
+			e.printStackTrace();
+		}
+
+		return localLocator;
+	}
+
+	public WebElement getAvilableElement(List<By> we) {
+
+		WebElement localLocator = null;
+
+		for (int i = 0; i < we.size(); i++) {
+
+			localLocator = getElement(we.get(i));
+
+			if (localLocator.equals(null)) {
+				System.out.println("getAvilableElement = null " + i);
+			
+			} else {
+				System.out.println("getAvilableElement = is not null " + i);
+				if (localLocator.isDisplayed()) {
+					System.out.println("getAvilableElement isDisplayed " + i);
+				}
+				break;
+			}
+		}
+
+		return localLocator;
+	}
+
+	@Override
+	public void scrollclickElement(By Locator) {
+		WebElement localLocator = null;
+		try {
+			waitForElementPresent(Locator);
+			localLocator = driver.findElement(Locator);
+			// ((JavascriptExecutor)
+			// driver).executeScript("arguments[0].scrollIntoView(true);", localLocator);
+		} catch (Exception e) {
+			System.out.println("Exception in getElement" + Locator.toString());
 			e.printStackTrace();
 		}
 
@@ -92,33 +222,56 @@ public class BasePage extends PageAbstract {
 		}
 	}
 
+	public void waitForElementPresent(WebElement Element) {
+		try {
+			wait.until(ExpectedConditions.visibilityOf(Element));
+		} catch (Exception e) {
+			System.out.println("Exception in waitForElementPresent");
+			e.printStackTrace();
+		}
+	}
+
+	public void waitForTimeOut() {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	}
+
 	@Override
-	public String getElemenetText(By Locator) {
-		return getElemenet(Locator).getText();
+	public String getElementText(By Locator) {
+		return getElement(Locator).getText();
 
 	}
 
 	public void doubleClickElement(By Locator) {
-		Actions aa = new Actions(driver);
-		WebElement localLocator = getElemenet(Locator);
+		WebElement localLocator = driver.findElement(Locator);
+		waitForElementPresent(Locator);
 		new Actions(driver).moveToElement(localLocator).build().perform();
-		Action mo = aa.doubleClick(localLocator).build();
-		mo.perform();
+		waitForElementPresent(Locator);
+		new Actions(driver).doubleClick(localLocator).build().perform();
 	}
 
 	public void moveToElementClick(By Locator) {
-		WebElement localLocator = getElemenet(Locator);
+		// This will scroll down the page by 1000 pixel vertical
+		js.executeScript("window.scrollBy(0,1000)");
+		waitForElementPresent(Locator);
+
+		WebElement localLocator = driver.findElement(Locator);
 		new Actions(driver).moveToElement(localLocator).build().perform();
 		localLocator.click();
 	}
 
 	public void ClickElement(By Locator) {
-		getElemenet(Locator).click();
+		getElement(Locator).click();
 	}
 
 	public void switchAllWindow() {
 
-		// It will return the parent window name as a String
+		// It will return the parent window name as a Strings
 		String parent = driver.getWindowHandle();
 
 		Set<String> s = driver.getWindowHandles();

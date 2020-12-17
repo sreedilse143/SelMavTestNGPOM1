@@ -44,26 +44,26 @@ public class AmazonLoginPage extends BasePage {
 	 * @return the amazonLogo
 	 */
 	public WebElement getAmazonLogo() {
-		return getElemenet(AmazonLogo);
+		return getElement(AmazonLogo);
 	}
 
 	/**
 	 * @return the amazonUserName
 	 */
 	public WebElement getAmazonUserName() {
-		return getElemenet(AmazonUserName);
+		return getElement(AmazonUserName);
 	}
 
 	/**
 	 * @return the amazonPassword
 	 */
 	public WebElement getAmazonPassword() {
-		return getElemenet(AmazonPassword);
+		return getElement(AmazonPassword);
 	}
 
 	
 	private WebElement getloginUserName() {
-		return getElemenet(loginUserName);
+		return getElement(loginUserName);
 		
 	}
 	
@@ -71,14 +71,14 @@ public class AmazonLoginPage extends BasePage {
 	 * @return the continue
 	 */
 	public WebElement getContinueButton() {
-		return getElemenet(ContinueButton);
+		return getElement(ContinueButton);
 	}
 
 	/**
 	 * @return the login
 	 */
 	public WebElement getLoginButton() {
-		return getElemenet(LoginButton);
+		return getElement(LoginButton);
 
 	}
 	
@@ -88,7 +88,7 @@ public class AmazonLoginPage extends BasePage {
 	 * login
 	 */
 	
-	public AmazonLoginPage login(String p_Username, String p_password) {
+	public AmazonLoginPage mlogin(String p_Username, String p_password) {
 
 		//getAmazonTitle();
 		//getAmazonLogo();
@@ -110,7 +110,7 @@ public class AmazonLoginPage extends BasePage {
 	
 
 
-	public AmazonLoginPage login(Boolean bNeg) {
+	public AmazonLoginPage mlogin(Boolean bNeg) {
 
 		if (bNeg) {
 			//getAmazonTitle();
