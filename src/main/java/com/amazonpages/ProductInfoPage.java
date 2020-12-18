@@ -13,8 +13,7 @@ public class ProductInfoPage extends BasePage {
 
 	private By Pagination = By.xpath("//div[@id='search']//ul[@class='a-pagination']/li/a");
 
-	private By FindProduct = By
-			.xpath("//h2[contains(@class,'a-size-mini a-spacing-none a-color-base s-line-clamp')]");
+	private By FindProduct = By.xpath("//h2[contains(@class,'a-size-mini a-spacing-none a-color-base s-line-clamp')]");
 
 	private By ProductName = By.id("productTitle");
 	private By ProductSource = By.xpath("//*[@id='a-autoid-5-announce']");
@@ -23,10 +22,10 @@ public class ProductInfoPage extends BasePage {
 	private By pPrice1 = By.xpath("//*[@id='priceblock_ourprice']");
 	private By pPrice2 = By.xpath("//div[@id='newAccordionRow]/div/div[1]/a/h5/div[2]/div/span[1]");
 	private By pPrice3 = By.xpath("//div[@id='soldByThirdParty']");
-	
+
 	private By acAvailability1 = By.xpath("//*[@id='availability-string']");
-	private By acAvailability = By.xpath("//div[@id='availability']/span");
-	
+	private By acAvailability = By.xpath("//div[contains(@id,'availability')]/span");
+
 	private By acWithExchangePrice = By.xpath("//*[@id='buyBackAccordionRow']/div/div[1]/a");
 	private By acWithoutExchangePrice = By.xpath("//*[@id='newAccordionRow']/div/div[1]/a");
 	private By acDeliveryAddress = By.xpath("//*[@id='contextualIngressPtLabel_deliveryShortLine']");
@@ -57,7 +56,6 @@ public class ProductInfoPage extends BasePage {
 		return getSearchPagination(Pagination, FindProduct, strText);
 	}
 
-	
 	/**
 	 * @return the productName
 	 */
@@ -83,22 +81,21 @@ public class ProductInfoPage extends BasePage {
 	 * @return the acPrice
 	 */
 	public String getpPrice() {
-		
-		By by1  = pPrice1;
-		By by2  = pPrice2;
-		By by3  = pPrice3;
+
+		By by1 = pPrice1;
+		By by2 = pPrice2;
+		By by3 = pPrice3;
 		List<By> we = new ArrayList<By>();
 		we.add(by1);
 		we.add(by2);
 		we.add(by3);
 		return getAvilableElement(we).getText();
-		
+
 	}
 
 	/**
 	 * @return the acWithExchangePrice
 	 */
-	
 
 	public String getacWithExchangePrice() {
 		return getElementText(acWithExchangePrice);
@@ -133,11 +130,10 @@ public class ProductInfoPage extends BasePage {
 
 		System.out.println("---------------mProductInfo");
 
-		
 		/*
 		 * Select searched product
 		 */
-		//getSearchPage(p_Product).click();
+		// getSearchPage(p_Product).click();
 		getSearchPagination(p_Product).click();
 
 		/*
@@ -147,20 +143,31 @@ public class ProductInfoPage extends BasePage {
 		/*
 		 * Select first product in search
 		 */
-		
+
 		System.out.println(getProductNameHeader());
-		
+
 		if (p_ProductType.contains("Books")) {
 			System.out.println(getProductSource());
 			getProductSourceLink().click();
 		}
 
-		
 		System.out.println(getpPrice());
 		System.out.println(getacAvailability());
-		//System.out.println(getacWithExchangePrice());
-		//System.out.println(getacWithoutExchangePrice());
-		System.out.println(getacDeliveryAddress());
+
+		switch (p_ProductType) {
+		case "Electronics":
+			System.out.println(getacWithExchangePrice());
+			System.out.println(getacWithoutExchangePrice());
+
+			System.out.println(getacDeliveryAddress());
+
+			break;
+
+		default:
+
+			break;
+		}
+
 		System.out.println("---------------mProductInfo");
 
 		return getInstance(ProductInfoPage.class);

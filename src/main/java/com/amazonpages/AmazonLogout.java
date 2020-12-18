@@ -10,7 +10,7 @@ public class AmazonLogout extends BasePage {
 
 	private By Menulink = By.xpath("//*[@id='nav-hamburger-menu']/i");
 	private By Signlink = By
-			.xpath("//div[@id='hmenu-canvas']/div[@id='hmenu-content']//li/a[contains(text(),'Sign Out')]");
+			.xpath("//div[@id='hmenu-canvas']/div[@id='hmenu-content']//a[contains(text(),'Sign Out')]");
 
 	public AmazonLogout(WebDriver driver) {
 		super(driver);

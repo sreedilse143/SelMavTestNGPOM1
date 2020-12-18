@@ -100,7 +100,10 @@ public class BasePage extends PageAbstract {
 	public WebElement getSearchPagination(By Pages, By Locator, String strElementText) {
 
 		int StaleTry = 0;
+		int pageno = 0;
+		int totalpages = 1;
 		Boolean bFound = false;
+		Boolean bStale = false;
 		WebElement localLocator = null;
 		List<WebElement> AllLocators = null;
 		List<WebElement> Allpages = null;
@@ -108,63 +111,76 @@ public class BasePage extends PageAbstract {
 		try {
 
 			Allpages = driver.findElements(Pages);
-			if (Allpages.size() < 1) {
-				System.out.println("No Pages found");
+			totalpages = Allpages.size();
+			if (totalpages == 0) {
+				System.out.println("In getSearchPagination  = No Pagination Found");
+				totalpages = 1;
 			} else {
-				System.out.println("Pages found" + Allpages.size());
+				System.out.println("total Pages found " + totalpages);
 			}
 
-			for (int i = 0; i < Allpages.size(); i++) {
-
+			pageno = 1;
+			do {
 				StaleTry = 1;
-				while (StaleTry < 2) {
+				while (StaleTry <= 2) {
 					try {
+
+						System.out.println("Page  " + pageno);
+
+						bStale = false;
 						waitForTimeOut();
 						driver.switchTo().defaultContent();
 
 						AllLocators = driver.findElements(Locator);
+						System.out.println("total Locators found " + AllLocators.size());
+
 						if (AllLocators.size() < 1) {
 							System.out.println("No Elements founds in the AllLocators list");
 						} else {
 							for (WebElement currentLocator : AllLocators) {
 								System.out.println(currentLocator.getText());
 
-								if (currentLocator.getText().contains(strElementText)) {
-									System.out.println(currentLocator.getText());
+								if (currentLocator.getText().startsWith(strElementText)) {
 									localLocator = currentLocator;
 									bFound = true;
 									break;
 								}
 							}
+							StaleTry = 3;
 						}
 
 					} catch (StaleElementReferenceException se) {
-
-					}
-					StaleTry++;
-				}
-				
-				if  (!bFound) {
-					/*
-					 * Next Page If Not Found
-					 */
-					StaleTry = 1;
-
-					while (StaleTry < 2) {
-						Allpages = driver.findElements(Pages);
-						try {
-							js.executeScript("window.scrollBy(0,1200)");
-
-							System.out.println(Allpages.get(i + 1).getText());
-							Allpages.get(i + 1).click();
-
-						} catch (StaleElementReferenceException se) {
-							se.printStackTrace();
-						}
+						bStale = true;
 						StaleTry++;
 					}
 				}
-			}
+				/*
+				 * Next Page
+				 */
+				if (!bFound && totalpages > 1) {
+
+					StaleTry = 1;
+					while (StaleTry <= 2) {
+
+						Allpages = driver.findElements(Pages);
+
+						try {
+							//js.executeScript("window.scrollBy(0,1200)");
+							if (!bStale) {
+								pageno++;
+							}
+							System.out.println("pageno " + Allpages.get(pageno-1).getText());
+							bStale = false;
+							Allpages.get(pageno-1).click();
+							StaleTry = 3;
+						} catch (StaleElementReferenceException se) {
+							bStale = true;
+							StaleTry++;
+						}
+					}
+				}
+
+			} while (pageno < totalpages && !bFound);
 
 		} catch (Exception e) {
 			System.out.println("Exception in getElements " + strElementText);
@@ -180,11 +196,15 @@ public class BasePage extends PageAbstract {
 
 		for (int i = 0; i < we.size(); i++) {
 
-			localLocator = getElement(we.get(i));
+			try {
+				localLocator = driver.findElement(we.get(i));
+			} catch (Exception e) {
 
-			if (localLocator.equals(null)) {
+			}
+
+			if (localLocator == null) {
 				System.out.println("getAvilableElement = null " + i);
-			
+
 			} else {
 				System.out.println("getAvilableElement = is not null " + i);
 				if (localLocator.isDisplayed()) {
@@ -310,7 +330,7 @@ public class BasePage extends PageAbstract {
 			String child_window = I1.next();
 			if (!parent.equals(child_window)) {
 				driver.switchTo().window(child_window);
-				System.out.println(driver.getTitle());
+				System.out.println("switchChildBrowser getTitle =  " + driver.getTitle());
 			}
 		}
 

@@ -24,13 +24,10 @@ public class ProductSearchPage extends BasePage {
 	private By SearchResultsFilterTable = By.xpath("//div[@id='search']/div[1]/div[1]");
 	private By SearchResultsTable = By.xpath("//div[@id='search']/div[1]/div[2]/div/span[3]/div[2]");
 
-	private By SearchResult1 = By.xpath(
-			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_2']");
-
-	private By SearchResults1_Name = By.xpath(
-			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_2']//a[@class='a-link-normal a-text-normal']");
+	private By SearchResults1_Name = By
+			.xpath("//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']//h2/a");
 	private By SearchResults1_Price1 = By.xpath(
-			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_2']//div[@class='a-row a-size-base a-color-base']");
+			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']//div[@class='a-row']");
 	private By SearchResults1_Price2 = By.xpath(
 			"//div[@id='search']//div[@class='s-main-slot s-result-list s-search-results sg-row']/div[@data-cel-widget='search_result_2']//div[@class='a-section a-spacing-none a-spacing-top-mini']//div[@class='a-row']/div[2]");
 
@@ -129,14 +126,10 @@ public class ProductSearchPage extends BasePage {
 	/**
 	 * @return the searchResults1
 	 */
-	public String getSearchResult1() {
-		waitForElementPresent(SearchResult1);
-		return getElementText(SearchResult1);
-		
-	}
 
-	public WebElement getSearchResults1_Name() {
-		return getElement(SearchResults1_Name);
+	public String getSearchResults1_Name1() {
+		waitForElementPresent(SearchResults1_Name);
+		return getElementText(SearchResults1_Name);
 	}
 
 	/**
@@ -169,11 +162,20 @@ public class ProductSearchPage extends BasePage {
 		setSearchProduct(p_Product);
 		getSearchButton().click();
 
-		/*
-		 * Sort LowToHigh
-		 */
-		getSearchResultsSort().click();
-		getSortLowToHigh().click();
+		switch (p_ProductType) {
+		case "Amazon Fresh":
+			/*
+			 * Sort LowToHigh
+			 */
+
+			break;
+
+		default:
+			getSearchResultsSort().click();
+			getSortLowToHigh().click();
+
+			break;
+		}
 
 		/*
 		 * Results
@@ -184,10 +186,10 @@ public class ProductSearchPage extends BasePage {
 		/*
 		 * first product
 		 */
-		System.out.println(getSearchResult1().toString());
+		System.out.println(getSearchResults1_Name1().toString());
 		System.out.println(getSearchResults1_Price1().toString());
 		System.out.println("---------------mProductSearch");
-		
+
 		return getInstance(ProductSearchPage.class);
 
 	}
