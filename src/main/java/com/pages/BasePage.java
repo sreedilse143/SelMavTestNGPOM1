@@ -125,7 +125,7 @@ public class BasePage extends PageAbstract {
 				while (StaleTry <= 2) {
 					try {
 
-						System.out.println("Page  " + pageno);
+						System.out.println("Page started " + pageno);
 
 						bStale = false;
 						waitForTimeOut();
@@ -151,6 +151,7 @@ public class BasePage extends PageAbstract {
 
 					} catch (StaleElementReferenceException se) {
 						bStale = true;
+						System.out.println("StaleElementReferenceException");
 						StaleTry++;
 					}
 				}
@@ -165,22 +166,23 @@ public class BasePage extends PageAbstract {
 						Allpages = driver.findElements(Pages);
 
 						try {
-							//js.executeScript("window.scrollBy(0,1200)");
+							// js.executeScript("window.scrollBy(0,1200)");
 							if (!bStale) {
 								pageno++;
 							}
-							System.out.println("pageno " + Allpages.get(pageno-1).getText());
 							bStale = false;
-							Allpages.get(pageno-1).click();
+							System.out.println("click pageno index  " + Allpages.get(pageno - 1).getText());
+							Allpages.get(pageno - 1).click();
 							StaleTry = 3;
 						} catch (StaleElementReferenceException se) {
 							bStale = true;
+							System.out.println("StaleElementReferenceException");
 							StaleTry++;
 						}
 					}
 				}
 
-			} while (pageno < totalpages && !bFound);
+			} while (pageno <= totalpages && !bFound);
 
 		} catch (Exception e) {
 			System.out.println("Exception in getElements " + strElementText);

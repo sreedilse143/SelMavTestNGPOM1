@@ -11,13 +11,13 @@ import com.pages.BasePage;
 
 public class ProductInfoPage extends BasePage {
 
-	private By Pagination = By.xpath("//div[@id='search']//ul[@class='a-pagination']/li/a");
+	private By Pagination = By.xpath("//div[@id='search']//ul[@class='a-pagination']/li");
 
 	private By FindProduct = By.xpath("//h2[contains(@class,'a-size-mini a-spacing-none a-color-base s-line-clamp')]");
 
 	private By ProductName = By.id("productTitle");
-	private By ProductSource = By.xpath("//*[@id='a-autoid-5-announce']");
-	private By ProductSourceLink = By.xpath("//a[@id='a-autoid-5-announce']");
+	private By ProductSource = By.xpath("//a[@id='a-autoid-6-announce']");
+	private By ProductSourceLink = By.xpath("//a[@id='a-autoid-6-announce']");
 
 	private By pPrice1 = By.xpath("//*[@id='priceblock_ourprice']");
 	private By pPrice2 = By.xpath("//div[@id='newAccordionRow]/div/div[1]/a/h5/div[2]/div/span[1]");
@@ -53,6 +53,7 @@ public class ProductInfoPage extends BasePage {
 	 */
 
 	public WebElement getSearchPagination(String strText) {
+		
 		return getSearchPagination(Pagination, FindProduct, strText);
 	}
 
@@ -70,6 +71,7 @@ public class ProductInfoPage extends BasePage {
 		return getElementText(ProductSource);
 	}
 
+	
 	/**
 	 * @return the productSourceLink
 	 */
@@ -148,7 +150,6 @@ public class ProductInfoPage extends BasePage {
 
 		if (p_ProductType.contains("Books")) {
 			System.out.println(getProductSource());
-			getProductSourceLink().click();
 		}
 
 		System.out.println(getpPrice());

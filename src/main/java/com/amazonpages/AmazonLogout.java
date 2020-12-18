@@ -43,8 +43,8 @@ public class AmazonLogout extends BasePage {
 	
 	public AmazonLogout mAmazonLogout() {
 
-		getMenulink().click();
-		setSignlink();
+		//getMenulink().click();
+		//setSignlink();
 
 		return getInstance(AmazonLogout.class);
 	}

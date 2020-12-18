@@ -40,6 +40,7 @@ public class ProductSearchPage extends BasePage {
 	 * @return the helloUser
 	 */
 	public String getHelloUser() {
+		waitForElementPresent(HelloUser);
 		return getElementText(HelloUser);
 	}
 
@@ -158,7 +159,7 @@ public class ProductSearchPage extends BasePage {
 		/*
 		 * Search
 		 */
-		setSearchProductType(p_ProductType);
+		//setSearchProductType(p_ProductType);
 		setSearchProduct(p_Product);
 		getSearchButton().click();
 

@@ -51,6 +51,7 @@ public class AmazonLoginPage extends BasePage {
 	 * @return the amazonUserName
 	 */
 	public WebElement getAmazonUserName() {
+		waitForElementPresent(AmazonUserName);
 		return getElement(AmazonUserName);
 	}
 

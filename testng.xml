@@ -1,29 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite" thread-count="3" parallel="tests" verbose="1">
+<suite name="Suite" thread-count="1" parallel="tests" verbose="1">
 
-	<test name="ChromeTest1" parallel="methods" thread-count="2">
-		<parameter name="StrBrowser" value="Chrome" />
-		<parameter name="TD_Username" value="9003130341" />
-		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
-		<parameter name="TD_ProdType" value="All Categories" />
-		<parameter name="TD_ProdName" value="Fresh Bhendi, 500g" />
-
-		<classes>
-			<class name="com.amazon.AmazonTest1" />
-		</classes>
-	</test> <!-- Test -->
-
-	<test name="OperaTest1" parallel="methods" thread-count="2">
-		<parameter name="StrBrowser" value="Opera" />
-		<parameter name="TD_Username" value="9003130341" />
-		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
-		<parameter name="TD_ProdType" value="Electronics" />
-		<parameter name="TD_ProdName" value="OnePlus Nord 5G" />
-		<classes>
-			<class name="com.amazon.AmazonTest1" />
-		</classes>
-	</test> <!-- Test -->
 
 	<test name="FirefoxTest1" parallel="methods" thread-count="2">
 		<parameter name="StrBrowser" value="Firefox" />
@@ -36,5 +14,29 @@
 			<class name="com.amazon.AmazonTest1" />
 		</classes>
 	</test> <!-- Test -->
+
+	<test name="ChromeTest1" parallel="methods" thread-count="2">
+		<parameter name="StrBrowser" value="Chrome" />
+		<parameter name="TD_Username" value="9003130341" />
+		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
+		<parameter name="TD_ProdType" value="All Categories" />
+		<parameter name="TD_ProdName" value="Fresh Bhendi, 500g" />
+
+		<classes>
+			<class name="com.amazon.AmazonTest1" />
+		</classes>
+	</test> <!-- Test -->
+	
+	<test name="OperaTest1" parallel="methods" thread-count="2">
+		<parameter name="StrBrowser" value="Opera" />
+		<parameter name="TD_Username" value="9003130341" />
+		<parameter name="TD_password" value="U3JlRS5BdWcyMA==" />
+		<parameter name="TD_ProdType" value="Electronics" />
+		<parameter name="TD_ProdName" value="OnePlus Nord 5G" />
+		<classes>
+			<class name="com.amazon.AmazonTest1" />
+		</classes>
+	</test> <!-- Test -->
+
 
 </suite> <!-- Suite -->
